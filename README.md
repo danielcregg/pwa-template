@@ -27,7 +27,7 @@ This is just a skeleton structure for you to insert your code, css and js files 
                   - * (all standard icons and favicons)       
 
 
-index.html A starter HTML file with the supporting markup for your site
-manifest.json A valid progressive web application web manifest file
-favicon.ico A classic favicon.ico
-service-worker.js A very basic service worker with install, active and fetch event handler placeholders
+index.html A starter HTML file with the supporting markup for your site  
+manifest.json A valid progressive web application web manifest file  
+favicon.ico A classic favicon.ico  
+service-worker.js A very basic service worker with install, active and fetch event handler placeholders  
