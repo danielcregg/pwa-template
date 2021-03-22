@@ -28,10 +28,4 @@ This is just a skeleton structure for you to insert your code, css and js files 
                 |- 1.jpg
 
                 |- icons/
-                  - * (all standard icons and favicons)
-                
-                
-#Demo:(----Visit demo from a mobile device to see the prompt----)
-
-https://pwa-mjs.firebaseapp.com/
-
+                  - * (all standard icons and favicons)       
