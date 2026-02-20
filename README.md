@@ -1,47 +1,68 @@
-This repository contains a basic website (index.html) and some files which also make it a Progressive Web App (PWA). This PWA meets the minimum requirments. 
+# PWA Template
 
-Here is a link to the website/PWA:  
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![PWA](https://img.shields.io/badge/PWA-5A0FC8?style=flat-square&logo=pwa&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)
 
-<a href="https://example.com" target="_blank" rel="noopener noreferrer">Link Text</a>
+> **Note:** This repository is a fork of [muhammadsalif/Demo-PWA](https://github.com/muhammadsalif/Demo-PWA).
 
+A minimal Progressive Web App template that meets all minimum PWA requirements. Use this as a starting point to quickly enable PWA capabilities on any existing website hosted on a LAMP server.
 
+## Overview
 
+This template provides the essential files needed to convert any website into an installable Progressive Web App. It includes a service worker for offline caching, a web app manifest for installability, and app icons. A one-liner bash command is provided to deploy the PWA files to your existing web server.
 
-https://danielcregg.github.io/pwa-template/  
-<a href="https://example.com" target="_blank">Link Text</a>  
+## Features
 
+- Meets all minimum PWA requirements for Lighthouse compliance
+- Service worker with install, activate, and fetch event handling
+- Cache-first offline strategy for the app shell
+- Web app manifest with 192x192 and 512x512 icons
+- One-command deployment script for LAMP servers
+- Drop-in template that works with any existing HTML website
 
-**<a href="https://danielcregg.github.io/pwa-template/" target="_blank">https://danielcregg.github.io/pwa-template/</a>**  
+## Prerequisites
 
-[https://danielcregg.github.io/pwa-template/](https://danielcregg.github.io/pwa-template/ "javascript:window.open('https://danielcregg.github.io/pwa-template/', '_blank');")
+- A LAMP server (Linux, Apache, MySQL, PHP) or any web server
+- Your website hosted at `/var/www/html` (or adjust paths accordingly)
+- HTTPS certificates configured for your domain (free via [Let's Encrypt / Certbot](https://certbot.eff.org/))
+- SSH access to your server
 
+## Getting Started
 
-A PWA is a web app that works in a similar way to a normal desktop or mobile app installed on a desktop or mobile device.  
+### Installation
 
-# PLEASE NOTE: Before you attempt to enable PWA for your website, you must have HTTPS certs for your website!
-You can get free certs at https://certbot.eff.org/.  
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/danielcregg/pwa-template.git
+   cd pwa-template
+   ```
 
-Important files in this repository:
-1. Manifest file - This is a JSON file that determines the behavior of the application after its installation. It contains things like the application name, icon paths and start URL.  
-2. Service Worker - This is a JavaScript file that is responsible for handling HTTPS requests and returning responses. Its purpose is to provide offline capabilities to the application.  
+2. **Quick Deploy to LAMP Server** -- SSH into your server and run:
+   ```bash
+   cd /var/www/html &&
+   sudo wget https://github.com/danielcregg/pwa-template/archive/refs/heads/master.zip -P /var/www/html/ &&
+   sudo apt install unzip &&
+   sudo unzip /var/www/html/master.zip &&
+   find pwa-template-master -type f ! -name 'index.*' -print0 | xargs -0 sudo cp -t /var/www/html/ &&
+   sudo rm -rf master.zip pwa-template-master/ &&
+   sudo sed -i 's|\s*</head>|\t\t<link rel="manifest" href="./manifest.webmanifest">\n\t\t<script>\n\t\t\tif ("serviceWorker" in navigator) {\n\t\t\t\tnavigator.serviceWorker.register("./serviceWorker.js"); \n\t\t\t}\n\t\t</script>\n\t\t<meta name="viewport" content="width=device-width, initial-scale=1">\n\t\t<meta name="theme-color" content="#FFF"/>\n&|' /var/www/html/index.*
+   ```
 
-To use this code you require:
-1. A LAMP server
-2. Your website hosted in: /var/www/html   
-3. Your website has security certs making it a HTTPS site  
+### Usage
 
-If all requirmetns are satified above:
-1. SSH into your LAMP server that is hosting your webpage.  
-2. Copy, paste and execute the following bash commands in the table below. Run all commands at once.
-3. Open your website in the browser. Use your domain name NOT your IP address. You will see if it is a PWA by the new icon in the URL bar.
+1. Open your website in a modern browser using your **domain name** (not your IP address).
+2. You should see a PWA install icon in the browser address bar.
+3. Run a Lighthouse audit in Chrome DevTools to verify PWA compliance.
+4. Users can install the app to their home screen via the browser prompt.
 
-```bash
-cd /var/www/html &&
-sudo wget https://github.com/danielcregg/pwa-template/archive/refs/heads/master.zip -P /var/www/html/ &&
-sudo apt install unzip &&
-sudo unzip /var/www/html/master.zip &&
-find pwa-template-master -type f ! -name 'index.*' -print0 | xargs -0 sudo cp -t /var/www/html/ &&
-sudo rm -rf master.zip pwa-template-master/ &&
-sudo sed -i 's|\s*</head>|\t\t<link rel="manifest" href="./manifest.webmanifest">\n\t\t<script>\n\t\t\tif ("serviceWorker" in navigator) {\n\t\t\t\tnavigator.serviceWorker.register("./serviceWorker.js"); \n\t\t\t}\n\t\t</script>\n\t\t<meta name="viewport" content="width=device-width, initial-scale=1">\n\t\t<meta name="theme-color" content="#FFF"/>\n&|' /var/www/html/index.* &&
-printf "\nOpen an internet browser (e.g. Chrome) and go to \e[3;4;33mhttps://YOUR_DOMIAN_NAME\e[0m - You should see a PWA icon in the URL bar of your browser.\n"
-```
+## Tech Stack
+
+- **HTML5** -- Minimal page structure with PWA meta tags
+- **JavaScript** -- Service worker with cache-first strategy
+- **Web App Manifest** -- PWA configuration and icon definitions
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
